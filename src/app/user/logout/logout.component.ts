@@ -18,24 +18,32 @@ export class LogoutComponent implements OnInit, OnDestroy {
   userSubscription = new Subscription();
   userLogoutSubscription = new Subscription();
 
+  loading: boolean = false;
+
   constructor(private userService: UserService,
               private router: Router) { }
 
   ngOnInit(): void {
     this.userSubscription = this.userService.user$.subscribe((user: User|null) => {
       if (!user) {
+        this.loading = false;
         this.router.navigate(['']);
       }
     });
   }
 
   onLogout() {
+    this.loading = true;
     this.userLogoutSubscription = this.userService.logout()
-        .subscribe(response => {
-          if (response) {
-            this.router.navigate(['']);
-          }
-        });
+        .subscribe(
+          (response) => {
+            if (response) {
+              this.router.navigate(['']);
+            }
+          },
+          (error) => this.loading = false,
+          () => this.loading = false
+        );
   }
 
   ngOnDestroy(): void {

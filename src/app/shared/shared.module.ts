@@ -18,7 +18,8 @@ import { FormFieldComponent } from './form-field/form-field.component';
     ReactiveFormsModule
   ],
   exports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoadingComponent
   ]
 })
 export class SharedModule { }
