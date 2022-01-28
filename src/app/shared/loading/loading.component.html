@@ -1,11 +1,9 @@
-<div class="container align-items-center">
-  <div *ngIf="loading; then spinnerBlock else buttonBlock"></div>
-  <ng-template #spinnerBlock>
-    <div class="d-flex justify-content-center align-items-center my-5">
-      <div class="spinner-border loader" role="status"></div>
-    </div>
-  </ng-template>
-  <ng-template #buttonBlock>
-    <ng-content></ng-content>
-  </ng-template>
-</div>
+<div *ngIf="loading; then spinnerBlock else buttonBlock"></div>
+<ng-template #spinnerBlock>
+  <div class="d-flex justify-content-center align-items-center my-5">
+    <div class="spinner-border loader" role="status"></div>
+  </div>
+</ng-template>
+<ng-template #buttonBlock>
+  <ng-content></ng-content>
+</ng-template>

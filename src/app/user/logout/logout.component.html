@@ -1,9 +1,7 @@
-<div>
-  <app-loading [loading]="loading">
-    <h5 class="my-4">{{ warningMessage }}</h5>
-    <button type="button" class="btn btn-success btn-lg"
-      (click)="onLogout()">
-      {{ OK }}
-    </button>
-  </app-loading>
-</div>
+<app-loading [loading]="loading" class="container align-items-center">
+  <h5 class="my-4">{{ warningMessage }}</h5>
+  <button type="button" class="btn btn-success btn-lg"
+    (click)="onLogout()">
+    {{ OK }}
+  </button>
+</app-loading>

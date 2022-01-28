@@ -35,6 +35,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   errorMessage: string = '';
 
+  loading = false;
+
   constructor(private userService: UserService,
               private router: Router) { }
 
@@ -47,8 +49,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
   
-  onSubmit() {
+  onLogin() {
     if (this.loginForm?.value) {
+      this.loading = true;
       this.userLoginSubscription = this.userService.login(this.loginForm.value)
           .pipe(
             catchError((error: Error) => {
@@ -58,8 +61,11 @@ export class LoginComponent implements OnInit, OnDestroy {
           )
           .subscribe(
             (next) => this.errorMessage = '',
-            (error) => console.log(error),
-            () => this.loginForm.reset()
+            (error) => this.loading = false,
+            () => {
+              this.loginForm.reset();
+              this.loading = false;
+            }
           );
     }
   }

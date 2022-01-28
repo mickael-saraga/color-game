@@ -32,7 +32,7 @@ export class UserService {
 
   login({ email, password }: Credentials): Observable<User> {
     let obs: Observable<User>;
-    if (email === 'john@doe' && password === 'abcde' ){
+    if (email === 'john@doe' && password === 'abcde' ) {
       obs = of({
         id: '5fc62fdb5eb04def08ac913a',
         username: 'JohnDoe'

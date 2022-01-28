@@ -1,5 +1,5 @@
 <div class="container">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
     <div class="form-group row">
       <label for="email" class="form-label">Email</label>
       <input type="email"
@@ -20,13 +20,15 @@
         [formControl]="passwordControl"
         class="form-control">
     </div>
-    <div class="text-center mt-4 mx-5">
-      <button type="submit"
-        [disabled]="!loginForm.valid"
-        class="btn btn-primary btn-block mt-5">
-        Submit
-      </button>
-    </div>
+    <app-loading [loading]="loading">
+      <div class="text-center mt-5 mx-5">
+        <button type="submit"
+          [disabled]="!loginForm.valid"
+          class="btn btn-primary btn-block">
+          Submit
+        </button>
+      </div>
+    </app-loading>
   </form>
   
   <div *ngIf="errorMessage" class="alert alert-danger mt-5">
