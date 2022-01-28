@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Subscription, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
+import { User } from '../models/user';
 import { UserService } from '../user.service';
 
 @Component({
@@ -7,11 +12,65 @@ import { UserService } from '../user.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
-  constructor(private userService: UserService) { }
+  // loginForm: FormGroup = new FormGroup({});
+  emailControl = new FormControl(null, [
+    Validators.required,
+    Validators.email,
+    Validators.minLength(6)
+  ]);
+  passwordControl = new FormControl(null, [
+    Validators.required,
+    Validators.minLength(5)
+  ]);
+  
+  loginForm = new FormGroup({
+    'email': this.emailControl,
+    'password': this.passwordControl
+  });
+
+  userLoginSubscription = new Subscription();
+  userLoginSubmissionSubscription = new Subscription();
+
+  errorMessage: string = '';
+
+  constructor(private userService: UserService,
+              private router: Router) { }
 
   ngOnInit(): void {
+    this.userLoginSubscription = this.userService.user$.subscribe((user: User|null) => {
+      if (user) {
+        this.router.navigate(['home']);
+        this.errorMessage = '';
+      }
+    });
+  }
+  
+  onSubmit() {
+    if (this.loginForm?.value) {
+      this.userLoginSubmissionSubscription = this.userService.login(this.loginForm.value)
+        .pipe(
+          catchError((error: Error) => {
+            this.errorMessage = error.message;
+            return throwError(error);
+          })
+        )
+        .subscribe(
+          (next) => this.errorMessage = '',
+          (error) => console.log(error),
+          () => this.loginForm.reset()
+        );
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.userLoginSubscription) {
+      this.userLoginSubscription.unsubscribe();
+    }
+    if (this.userLoginSubmissionSubscription) {
+      this.userLoginSubmissionSubscription.unsubscribe();
+    }
   }
 
 }

@@ -30,7 +30,7 @@ export class UserService {
     return this.userSubject.asObservable();
   }
 
-  login({ password, email }: Credentials): Observable<User> {
+  login({ email, password }: Credentials): Observable<User> {
     let obs: Observable<User>;
     if (email === 'john@doe' && password === 'abcde' ){
       obs = of({
@@ -38,7 +38,7 @@ export class UserService {
         username: 'JohnDoe'
       });
     } else {
-      obs = throwError(new Error('invalid credential'));
+      obs = throwError(new Error('Invalid Credentials'));
     }
     return obs.pipe(
       delay(UserService.delay), // simulate API

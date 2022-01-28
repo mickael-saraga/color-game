@@ -1,21 +1,35 @@
-<form>
-  <div class="form-group row">
-    <label for="email" class="form-label">Email</label>
-    <input type="email"
-      id="email"
-      name="email"
-      required
-      class="form-control">
+<div class="container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <label for="email" class="form-label">Email</label>
+      <input type="email"
+        id="email"
+        name="email"
+        required
+        formControlName="email"
+        [formControl]="emailControl"
+        class="form-control">
+    </div>
+    <div class="form-group row">
+      <label for="password" class="form-label">Password</label>
+      <input type="password"
+        id="password"
+        name="password"
+        required
+        formControlName="password"
+        [formControl]="passwordControl"
+        class="form-control">
+    </div>
+    <div class="text-center mt-4 mx-5">
+      <button type="submit"
+        [disabled]="!loginForm.valid"
+        class="btn btn-primary btn-block mt-5">
+        Submit
+      </button>
+    </div>
+  </form>
+  
+  <div *ngIf="errorMessage" class="alert alert-danger mt-5">
+    {{ errorMessage }}
   </div>
-  <div class="form-group row">
-    <label for="password" class="form-label">Password</label>
-    <input type="password"
-      id="password"
-      name="password"
-      required
-      class="form-control">
-  </div>
-  <div class="text-center mt-4 mx-5">
-    <button type="submit" class="btn btn-primary btn-block">Submit</button>
-  </div>
-</form>
+</div>
