@@ -30,9 +30,8 @@ export class UserService {
     return this.userSubject.asObservable();
   }
 
-  login({ password, email}: Credentials): Observable<User> {
+  login({ password, email }: Credentials): Observable<User> {
     let obs: Observable<User>;
-
     if (email === 'john@doe' && password === 'abcde' ){
       obs = of({
         id: '5fc62fdb5eb04def08ac913a',
@@ -42,14 +41,14 @@ export class UserService {
       obs = throwError(new Error('invalid credential'));
     }
     return obs.pipe(
-      delay(UserService.delay), // simulate api
+      delay(UserService.delay), // simulate API
       tap(user => this.userSubject.next(user))
     );
   }
 
   logout(): Observable<boolean> {
     return of(true).pipe(
-      delay(UserService.delay),
+      delay(UserService.delay), // simulate API
       tap(() => this.userSubject.next(null))
     );
   }
