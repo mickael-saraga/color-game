@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { LoadingComponent } from './loading/loading.component';
 import { FormFieldComponent } from './form-field/form-field.component';
 
@@ -11,7 +13,12 @@ import { FormFieldComponent } from './form-field/form-field.component';
     FormFieldComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  exports: [
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }
