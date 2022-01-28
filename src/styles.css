@@ -10,6 +10,12 @@ main {
   margin: 50px auto;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 250px;
+}
+
 table {
   width: 100%;
 }

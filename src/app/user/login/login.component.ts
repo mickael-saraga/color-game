@@ -30,8 +30,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     'password': this.passwordControl
   });
 
+  userSubscription = new Subscription();
   userLoginSubscription = new Subscription();
-  userLoginSubmissionSubscription = new Subscription();
 
   errorMessage: string = '';
 
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.userLoginSubscription = this.userService.user$.subscribe((user: User|null) => {
+    this.userSubscription = this.userService.user$.subscribe((user: User|null) => {
       if (user) {
         this.router.navigate(['home']);
         this.errorMessage = '';
@@ -49,27 +49,27 @@ export class LoginComponent implements OnInit, OnDestroy {
   
   onSubmit() {
     if (this.loginForm?.value) {
-      this.userLoginSubmissionSubscription = this.userService.login(this.loginForm.value)
-        .pipe(
-          catchError((error: Error) => {
-            this.errorMessage = error.message;
-            return throwError(error);
-          })
-        )
-        .subscribe(
-          (next) => this.errorMessage = '',
-          (error) => console.log(error),
-          () => this.loginForm.reset()
-        );
+      this.userLoginSubscription = this.userService.login(this.loginForm.value)
+          .pipe(
+            catchError((error: Error) => {
+              this.errorMessage = error.message;
+              return throwError(error);
+            })
+          )
+          .subscribe(
+            (next) => this.errorMessage = '',
+            (error) => console.log(error),
+            () => this.loginForm.reset()
+          );
     }
   }
 
   ngOnDestroy(): void {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
     if (this.userLoginSubscription) {
       this.userLoginSubscription.unsubscribe();
-    }
-    if (this.userLoginSubmissionSubscription) {
-      this.userLoginSubmissionSubscription.unsubscribe();
     }
   }
 
