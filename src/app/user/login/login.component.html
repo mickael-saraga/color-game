@@ -1,20 +1,22 @@
 <div class="container">
   <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
     <div class="form-group row">
-      <label for="email" class="form-label">Email</label>
+      <!-- <label for="email" class="form-label">Email</label> -->
       <input type="email"
         id="email"
         name="email"
+        placeholder="Email"
         required
         formControlName="email"
         [formControl]="emailControl"
         class="form-control">
     </div>
     <div class="form-group row">
-      <label for="password" class="form-label">Password</label>
+      <!-- <label for="password" class="form-label">Password</label> -->
       <input type="password"
         id="password"
         name="password"
+        placeholder="Password"
         required
         formControlName="password"
         [formControl]="passwordControl"

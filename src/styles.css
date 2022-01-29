@@ -3,19 +3,32 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
 
+html,
+body {
+  height: 100%;
+}
+
+.navbar {
+  height: 60px;
+}
+
 
 main {
+  /* height: calc(100% - 60px); */
+  height: 100%;
   padding: 60px 10px;
   max-width: 1000px;
   margin: 50px auto;
 }
 
 .container {
+  height: 100%;
+  width: 100%;
   margin-top: 15px;
   margin-bottom: 15px;
   display: flex;
   flex-direction: column;
-  padding: 0 250px;
+  padding: 0 150px;
 }
 
 table {

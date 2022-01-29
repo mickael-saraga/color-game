@@ -5,12 +5,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingComponent } from './loading/loading.component';
 import { FormFieldComponent } from './form-field/form-field.component';
 
+import { IfUserDirective } from './if-user.directive';
+import { IfNoUserDirective } from './if-no-user.directive';
+
 
 
 @NgModule({
   declarations: [
-    LoadingComponent,
-    FormFieldComponent
+    FormFieldComponent,
+    IfUserDirective,
+    IfNoUserDirective,
+    LoadingComponent
   ],
   imports: [
     CommonModule,
@@ -19,6 +24,8 @@ import { FormFieldComponent } from './form-field/form-field.component';
   ],
   exports: [
     ReactiveFormsModule,
+    IfUserDirective,
+    IfNoUserDirective,
     LoadingComponent
   ]
 })

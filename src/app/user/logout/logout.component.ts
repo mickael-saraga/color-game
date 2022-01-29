@@ -27,7 +27,7 @@ export class LogoutComponent implements OnInit, OnDestroy {
     this.userSubscription = this.userService.user$.subscribe((user: User|null) => {
       if (!user) {
         this.loading = false;
-        this.router.navigate(['']);
+        this.router.navigate(['home']);
       }
     });
   }
@@ -38,7 +38,7 @@ export class LogoutComponent implements OnInit, OnDestroy {
         .subscribe(
           (response) => {
             if (response) {
-              this.router.navigate(['']);
+              this.router.navigate(['home']);
             }
           },
           (error) => this.loading = false,
