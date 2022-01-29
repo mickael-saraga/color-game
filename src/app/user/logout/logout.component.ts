@@ -13,7 +13,7 @@ import { UserService } from '../user.service';
 export class LogoutComponent implements OnInit, OnDestroy {
 
   warningMessage: string = 'Voulez-vous vraiment vous déconnecter ?';
-  OK: string = 'OUI';
+  buttonLogoutConfirmationTitle: string = 'OUI';
 
   userSubscription = new Subscription();
   userLogoutSubscription = new Subscription();

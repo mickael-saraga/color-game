@@ -23,14 +23,14 @@ const routes: Routes = [
     LogoutComponent
   ],
   imports: [
-    RouterModule.forChild(routes),
     CommonModule,
-    SharedModule
+    SharedModule,
+    RouterModule.forChild(routes)
   ],
   exports: [
-    RouterModule,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    RouterModule
   ]
 })
 export class UserModule { }
