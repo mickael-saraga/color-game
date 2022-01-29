@@ -1,1 +1,36 @@
-<p>new works!</p>
+<div>
+  <div class="grid-form">
+    <form [formGroup]="gridForm">
+      <div class="form-group row">
+        <label for="rows" class="form-label col-1 font-weight-bold">Rows</label>
+        <input type="range" min="1" max="15"
+          id="rows" name="rows" placeholder="Rows"
+          formControlName="rows"
+          [formControl]="rowsControl"
+          [value]="rowsControl.value"
+          class="form-control custom-range col-9">
+        <input type="number" min="1" max="15"
+          id="rowsNumber" name="rows" placeholder="Rows"
+          formControlName="rows"
+          [formControl]="rowsControl"
+          [value]="rowsControl.value"
+          class="font-weight-bold">
+      </div>
+      <div class="form-group row">
+        <label for="cols" class="form-label col-1 font-weight-bold">Cols</label>
+        <input type="range" min="1" max="15"
+          id="cols" name="cols" placeholder="Cols"
+          formControlName="cols"
+          [formControl]="colsControl"
+          [value]="colsControl.value"
+          class="form-control custom-range col-9">
+        <input type="number" min="1" max="15"
+          id="colsNumber" name="cols" placeholder="Cols"
+          formControlName="cols"
+          [formControl]="colsControl"
+          [value]="colsControl.value"
+          class="font-weight-bold">
+      </div>
+    </form>
+  </div>
+</div>

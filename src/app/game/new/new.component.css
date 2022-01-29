@@ -1,0 +1,22 @@
+.grid-form {
+  display: flex;
+  flex-direction: column;
+  padding: 0 150px;
+}
+
+label {
+  margin-bottom: 0.3rem;
+}
+
+.row {
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.custom-range {
+  height: 1.8rem;
+}
+
+.table-container {
+  padding-top: 35px;
+}
