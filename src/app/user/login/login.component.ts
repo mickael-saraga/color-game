@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription, throwError } from 'rxjs';
+import { Observable, Subscription, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { User } from '../models/user';
@@ -14,13 +14,12 @@ import { UserService } from '../user.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  // loginForm: FormGroup = new FormGroup({});
-  emailControl = new FormControl(null, [
+  emailControl = new FormControl(UserService.defaultEmailValue, [
     Validators.required,
     Validators.email,
     Validators.minLength(6)
   ]);
-  passwordControl = new FormControl(null, [
+  passwordControl = new FormControl(UserService.defaultPasswordValue, [
     Validators.required,
     Validators.minLength(5)
   ]);
@@ -29,7 +28,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     'email': this.emailControl,
     'password': this.passwordControl
   });
-
+    
+  isDistantAuthentication: boolean = false;
+  mockedEmailType = new FormControl(this.isDistantAuthentication);
+  
   userSubscription = new Subscription();
   userLoginSubscription = new Subscription();
 
@@ -48,11 +50,31 @@ export class LoginComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  get placeholderValidEmails(): string[] {
+    return this.userService.placeholderValidEmails;
+  }
+
+  changeMockingEmailStatus() {
+    this.isDistantAuthentication = this.mockedEmailType.value;
+    if (!this.isDistantAuthentication) {
+      this.loginForm.setValue({
+        'email': UserService.defaultUsernameValue,
+        'password': UserService.defaultPasswordValue
+      });
+    }
+  }
   
   onLogin() {
     if (this.loginForm?.value) {
       this.loading = true;
-      this.userLoginSubscription = this.userService.login(this.loginForm.value)
+      let userLoginAuthentication$ = new Observable();
+      if (this.isDistantAuthentication) {
+        userLoginAuthentication$ = this.userService.loginDistant(this.loginForm.value);
+      } else {
+        userLoginAuthentication$ = this.userService.login(this.loginForm.value);
+      }
+      this.userLoginSubscription = userLoginAuthentication$
           .pipe(
             catchError((error: Error) => {
               this.errorMessage = error.message;
@@ -68,6 +90,12 @@ export class LoginComponent implements OnInit, OnDestroy {
             }
           );
     }
+  }
+
+  selectValidMockEmail(email: string) {
+    this.loginForm.patchValue({
+      email
+    });
   }
 
   ngOnDestroy(): void {
