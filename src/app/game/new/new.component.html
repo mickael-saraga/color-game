@@ -33,4 +33,16 @@
       </div>
     </form>
   </div>
+
+  <div class="table-container">
+    <table>
+      <tbody>
+        <tr *ngFor="let row of rowNumbers">
+          <td *ngFor="let col of colNumbers">
+            <app-case [(color)]="table[row][col]"></app-case>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

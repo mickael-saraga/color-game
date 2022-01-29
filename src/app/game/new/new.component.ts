@@ -47,4 +47,8 @@ export class NewComponent implements OnInit {
     this.table = Array.from(Array(grid.rows), () => new Array(grid.cols));
   }
 
+  onColorChange(event: any) {
+    console.log(event)
+  }
+
 }
