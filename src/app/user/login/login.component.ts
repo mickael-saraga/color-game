@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     
   isDistantAuthentication: boolean = false;
   mockedEmailType = new FormControl(this.isDistantAuthentication);
+  usersPlaceholdersEmailsSubscription = new Subscription();
+  usersPlaceholdersEmails: string[] = [];
   
   userSubscription = new Subscription();
   userLoginSubscription = new Subscription();
@@ -57,7 +59,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   changeMockingEmailStatus() {
     this.isDistantAuthentication = this.mockedEmailType.value;
-    if (!this.isDistantAuthentication) {
+    if (this.isDistantAuthentication) {
+      this.usersPlaceholdersEmailsSubscription = this.userService.getPlaceholderValidEmails()
+                                                                 .subscribe((usersEmails) => {
+        this.usersPlaceholdersEmails = usersEmails;
+      });
+    } else {
       this.loginForm.setValue({
         'email': UserService.defaultUsernameValue,
         'password': UserService.defaultPasswordValue
@@ -104,6 +111,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
     if (this.userLoginSubscription) {
       this.userLoginSubscription.unsubscribe();
+    }
+    if (this.usersPlaceholdersEmailsSubscription) {
+      this.usersPlaceholdersEmailsSubscription.unsubscribe();
     }
   }
 

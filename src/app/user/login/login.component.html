@@ -5,6 +5,7 @@
       <input type="email"
         id="email"
         name="email"
+        title="email"
         placeholder="Email"
         required
         formControlName="email"
@@ -16,6 +17,7 @@
       <input type="password"
         id="password"
         name="password"
+        title="password"
         placeholder="Password"
         required
         formControlName="password"
@@ -23,7 +25,7 @@
         class="form-control">
     </div>
     <app-loading [loading]="loading">
-      <div class="text-center my-5 mx-5">
+      <div class="text-center my-4 mx-5">
         <button type="submit"
           [disabled]="!loginForm.valid"
           class="btn btn-primary btn-block">
@@ -39,19 +41,22 @@
 </div>
 
 <div class="container emails-container" *ngIf="placeholderValidEmails">
-  <div class="form-group form-check text-center">
+  <div class="form-group form-check text-center custom-control custom-switch">
     <input type="checkbox"
       id="mockingEmailStatus"
       [value]="isDistantAuthentication"
       [formControl]="mockedEmailType"
       (change)="changeMockingEmailStatus()"
-      class="form-check-input">
-    <label for="mockingEmailStatus" class="form-check-label">Utiliser l'authentification distante</label>
+      class="form-check-input custom-control-input">
+    <label for="mockingEmailStatus"
+      class="form-check-label custom-control-label">
+      Utiliser l'authentification distante
+    </label>
   </div>
   <div *ngIf="isDistantAuthentication">
     <h6>Emails valides d'utilisateurs pour tester l'authentification distante :</h6>
     <ul class="list-group mt-3">
-      <li *ngFor="let email of placeholderValidEmails"
+      <li *ngFor="let email of usersPlaceholdersEmails"
         (click)="selectValidMockEmail(email)"
         class="list-group-item list-group-item-action"
         [class.active]="emailControl.value === email">

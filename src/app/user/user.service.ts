@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { delay, skip, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, from, Observable, of, throwError } from 'rxjs';
+import { delay, map, skip, switchMap, tap, toArray } from 'rxjs/operators';
 
 import { Credentials } from './models/credentials';
 import { User } from './models/user';
@@ -57,6 +57,15 @@ export class UserService {
 
   get placeholderValidEmails(): string[] {
     return this.validUsersEmails;
+  }
+
+  getPlaceholderValidEmails() {
+    return this.http.get(UserService.placeholderURL)
+                    .pipe(
+                      switchMap((userData: any[]) => from(userData)),
+                      map((userData: any) => userData.email),
+                      toArray()
+                    );
   }
 
   loginDistant(credentials: Credentials): Observable<User> {
