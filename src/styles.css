@@ -33,6 +33,21 @@ main {
   padding: 0 18rem;
 }
 
+@media screen and (max-width: 767px) {
+  .cg-container {
+    padding: 0 3rem;
+  }
+
+  table td {
+    padding: 1px !important;
+  }
+
+  table td .card {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+  }
+}
+
 table {
   width: 100%;
   display: flex;

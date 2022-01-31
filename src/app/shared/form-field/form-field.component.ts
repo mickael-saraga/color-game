@@ -8,11 +8,12 @@ import { InputFormControlDirective } from '../input-form-control.directive';
 })
 export class FormFieldComponent implements AfterContentInit {
 
-  @ContentChild(InputFormControlDirective, { read: ElementRef }) inputRef: ElementRef;
+  @ContentChild(InputFormControlDirective, { read: ElementRef }) inputRef: ElementRef = new ElementRef(HTMLInputElement);
 
   constructor() { }
 
   ngAfterContentInit(): void {
+    console.log(this.inputRef)
     // console.log(this.inputRef.nativeElement.type)
     // console.log(this.inputRef.nativeElement.value)
   }

@@ -1,22 +1,39 @@
 .grid-form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   padding: 0 150px;
 }
 
 label {
+  padding-right: 2.3rem;
   margin-bottom: 0.3rem;
 }
 
 .row {
   flex-wrap: nowrap;
   align-items: center;
+  justify-content: center;
+  margin-left: unset;
+  margin-right: unset;
 }
 
 .custom-range {
   height: 1.8rem;
 }
 
+input[type=number] {
+  max-width: 40px;
+  height: 1.8rem;
+  border-radius: 3px;
+}
+
 .table-container {
   padding-top: 35px;
+}
+
+@media screen and (max-width: 767px) {
+  .grid-form {
+    padding: 0;
+  }
 }

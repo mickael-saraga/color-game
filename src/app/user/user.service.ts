@@ -60,7 +60,7 @@ export class UserService {
   }
 
   getPlaceholderValidEmails() {
-    return this.http.get(UserService.placeholderURL)
+    return this.http.get<any[]>(UserService.placeholderURL)
                     .pipe(
                       switchMap((userData: any[]) => from(userData)),
                       map((userData: any) => userData.email),
