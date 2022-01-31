@@ -1,1 +1,8 @@
-<p>form-field works!</p>
+<div class="input-group">
+  <div class="input-group-prepend">
+    <div class="input-group-text">
+      <i class="fa fa-{{iconText}}"></i>
+    </div>
+  </div>
+  <ng-content select="[type]"></ng-content>
+</div>

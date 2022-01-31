@@ -39,7 +39,9 @@
       <tbody>
         <tr *ngFor="let row of rowNumbers">
           <td *ngFor="let col of colNumbers">
-            <app-case [(color)]="table[row][col]"></app-case>
+            <app-case [(color)]="table[row][col]"
+                      (colorChange)="onColorChange($event)">
+            </app-case>
           </td>
         </tr>
       </tbody>

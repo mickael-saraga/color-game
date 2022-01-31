@@ -1,8 +1,8 @@
-<div class="container">
+<div class="cg-container">
   <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-    <div class="form-group row">
+    <!-- <div class="form-group"> -->
       <!-- <label for="email" class="form-label">Email</label> -->
-      <input type="email"
+      <!-- <input type="email"
         id="email"
         name="email"
         title="email"
@@ -10,11 +10,21 @@
         required
         formControlName="email"
         [formControl]="emailControl"
-        class="form-control">
-    </div>
-    <div class="form-group row">
+        class="form-control"> -->
+    <!-- </div> -->
+    <app-form-field class="form-group">
+      <input type="email"
+        inputForControl
+        id="email"
+        title="email"
+        placeholder="Email"
+        required
+        [formControl]="emailControl"
+        formControlName="email">
+    </app-form-field>
+    <!-- <div class="form-group"> -->
       <!-- <label for="password" class="form-label">Password</label> -->
-      <input type="password"
+      <!-- <input type="password"
         id="password"
         name="password"
         title="password"
@@ -22,8 +32,18 @@
         required
         formControlName="password"
         [formControl]="passwordControl"
-        class="form-control">
-    </div>
+        class="form-control"> -->
+    <!-- </div> -->
+    <app-form-field class="form-group">
+      <input type="password"
+        inputForControl
+        id="password"
+        title="password"
+        placeholder="Password"
+        required
+        [formControl]="passwordControl"
+        formControlName="password">
+    </app-form-field>
     <app-loading [loading]="loading">
       <div class="text-center my-4 mx-5">
         <button type="submit"
@@ -40,7 +60,7 @@
   </div>
 </div>
 
-<div class="container emails-container" *ngIf="placeholderValidEmails">
+<div class="cg-container emails-container" *ngIf="placeholderValidEmails">
   <div class="form-group form-check text-center custom-control custom-switch">
     <input type="checkbox"
       id="mockingEmailStatus"
@@ -56,6 +76,7 @@
   <div *ngIf="isDistantAuthentication">
     <h6>Emails valides d'utilisateurs pour tester l'authentification distante :</h6>
     <ul class="list-group mt-3">
+      <!-- <li *ngFor="let email of placeholderValidEmails" -->
       <li *ngFor="let email of usersPlaceholdersEmails"
         (click)="selectValidMockEmail(email)"
         class="list-group-item list-group-item-action"

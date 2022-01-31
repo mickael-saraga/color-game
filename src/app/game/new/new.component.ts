@@ -9,16 +9,13 @@ import { throttleTime } from 'rxjs/operators';
 })
 export class NewComponent implements OnInit {
 
-  table: Array<Array<string|null>> = [];
-
-  rowNumbers: number[] = [];
-  colNumbers: number[] = [];
-
-  rowsControl = new FormControl(3, [
+  initialRows = 3;
+  rowsControl = new FormControl(this.initialRows, [
       Validators.required,
       Validators.minLength(1)
   ]);
-  colsControl = new FormControl(6, [
+  initialCols = 6;
+  colsControl = new FormControl(this.initialCols, [
       Validators.required,
       Validators.minLength(1)
   ]);
@@ -28,9 +25,15 @@ export class NewComponent implements OnInit {
     'cols': this.colsControl
   });
 
+  table: Array<Array<string|null>> = [];
+
+  rowNumbers: number[] = [];
+  colNumbers: number[] = [];
+
   constructor() { }
 
   ngOnInit(): void {
+    this.drawGrid({rows: this.initialRows, cols: this.initialCols});
     this.gridForm.valueChanges.pipe(throttleTime(500))
                  .subscribe((grid: { rows: number, cols: number }) => {
                    if (this.gridForm.valid) {
